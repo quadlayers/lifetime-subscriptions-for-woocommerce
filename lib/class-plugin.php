@@ -19,6 +19,7 @@ final class Plugin {
 			'woocommerce_init',
 			function () {
 				Admin_Menu::instance();
+				Admin_Product::instance();
 				Hooks::instance();
 			}
 		);

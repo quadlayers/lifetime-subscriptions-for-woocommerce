@@ -9,10 +9,10 @@ class Admin_Menu {
 	private function __construct() {
 
 		// Add an option for lifetime/onetime purchase In the subscription intervals. (day, week, month, year, lifetime).
-		add_filter( 'woocommerce_subscription_periods', array( $this, 'lifetime_subscription_period' ), 10, 1 );
+		// add_filter( 'woocommerce_subscription_periods', array( $this, 'lifetime_subscription_period' ), 10, 1 );
 
-		// Add subscription Lifetime length to subscription array.
-		add_filter( 'woocommerce_subscription_lengths', array( $this, 'lifetime_subscription_length' ), 10, 2 );
+		// // Add subscription Lifetime length to subscription array.
+		// add_filter( 'woocommerce_subscription_lengths', array( $this, 'lifetime_subscription_length' ), 10, 2 );
 
 		// Add settings in Woocommerce -> Settings -> Subscriptions
 		add_filter( 'woocommerce_subscription_settings', array( $this, 'lifetime_subscription_label' ), 10, 1 );
@@ -27,7 +27,7 @@ class Admin_Menu {
 	}
 
 	public function lifetime_subscription_length( $subscription_ranges, $subscription_period ) {
-		$subscription_ranges['lifetime'] = array( 1 => 'Never expire' );
+		$subscription_ranges['lifetime'] = array( 'Never expire' );
 		return $subscription_ranges;
 	}
 
