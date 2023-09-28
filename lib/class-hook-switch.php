@@ -135,21 +135,26 @@ class Hook_Switch {
 		if ( ! $is_lifetime ) {
 			return $subscription_string;
 		}
+
 		/**
 		 * Check if the product is a switch.
+		 * $is_switch = $this->is_subscription_switch( $product->get_id(), $switch_counter );
 		 */
-		$is_switch = $this->is_subscription_switch( $product->get_id(), $switch_counter );
 
-		if ( ! $is_switch ) {
-			return $subscription_string;
-		}
+		// Define a regular expression pattern to match the specific HTML structure.
+		$pattern1 = '/<bdi><span class="woocommerce-Price-currencySymbol">[^<]+<\/span>[^<]+<\/bdi>/';
 
-		$sign_up_fee = \WC_Subscriptions_Product::get_sign_up_fee( $product );
+		// Perform the regular expression replace
+		// This will replace the matched portion with an empty string, effectively removing it.
+		$subscription_string = preg_replace($pattern1, '', $subscription_string, 1);
+	
+		// Define a regular expression pattern to match the specific HTML structure.
+		$pattern2 = '/(<span class="subscription-details">).*?(<span class="woocommerce-Price-amount amount">)/s';
 
-		if ( isset( $include['sign_up_fee'] ) && $sign_up_fee > 0 ) {
-			$subscription_string = sprintf( __( '%s one time payment', 'lifetime-subscriptions-for-woocommerce' ), $include['sign_up_fee'] );
-		}
-
+		// Perform the regular expression replace
+		// This will replace the matched portion with the content between the two spans.
+		$subscription_string = preg_replace($pattern2, '$1', $subscription_string);
+		
 		return $subscription_string;
 
 	}
