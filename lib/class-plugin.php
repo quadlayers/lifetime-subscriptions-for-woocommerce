@@ -20,7 +20,8 @@ final class Plugin {
 			function () {
 				Admin_Menu::instance();
 				Admin_Product::instance();
-				Hooks::instance();
+				Hook_Product::instance();
+				Hook_Switch::instance();
 			}
 		);
 
