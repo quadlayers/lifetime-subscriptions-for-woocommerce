@@ -7,9 +7,30 @@ class Admin_Product {
 	protected static $instance;
 
 	private function __construct() {
-		// Add product lifetime meta
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+		// Add product lifetime meta.
 		add_action( 'woocommerce_variation_options', array( $this, 'add_options' ), 10, 3 );
 		add_action( 'woocommerce_save_product_variation', array( $this, 'save' ), 10, 2 );
+
+	}
+
+	public function enqueue_scripts() {
+
+		$screen = get_current_screen();
+
+		$backend = include LSFW_PLUGIN_DIR . 'build/backend/js/index.asset.php';
+
+		wp_register_style( 'lsfw-admin', plugins_url( '/build/backend/css/style.css', LSFW_PLUGIN_FILE ), false, LSFW_PLUGIN_VERSION );
+
+		wp_register_script( 'lsfw-admin', plugins_url( '/build/backend/js/index.js', LSFW_PLUGIN_FILE ), $backend['dependencies'], $backend['version'], false );
+
+		//  phpcs:ignore WordPress.PHP.StrictInArray.FoundNonStrictFalse
+		if ( ! isset( $screen->id ) || ! in_array( $screen->id, array( 'product', 'edit-product', 'shop_order', 'edit-shop_order' ), false ) ) {
+			return;
+		}
+
+		wp_enqueue_script( 'lsfw-admin' );
+		wp_enqueue_style( 'lsfw-admin' );
 
 	}
 

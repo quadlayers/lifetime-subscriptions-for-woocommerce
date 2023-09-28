@@ -1,0 +1,17 @@
+#woocommerce-product-data {
+	.woocommerce_variation {
+		&.is_lifetime_active_variation {
+			.variable_sale_price2_field,
+			._subscription_length_field,
+			._subscription_price_field {
+				opacity: 0.5;
+				pointer-events: none;
+
+				input,
+				select {
+					background-color: #eee;
+				}
+			}
+		}
+	}
+}
