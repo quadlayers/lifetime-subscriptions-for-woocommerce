@@ -18,6 +18,8 @@ class Hook_Switch {
 		add_filter( 'wcs_switch_proration_extra_to_pay', array( $this, 'lifetime_switch_recuring_fee' ), 10, 4 );
 
 		// Change the price string to a one time payment by removing the period and the sign up fee.
+		add_filter( 'woocommerce_cart_item_subtotal', array( $this, 'lifetime_switch_product_price_string' ), 10, 3 );
+
 		add_filter( 'woocommerce_subscriptions_product_price_string', array( $this, 'lifetime_subscriptions_product_price_string' ), 10, 3 );
 
 		// Removes the Upgrade subscription switch/button from subscription. No upgrade if subscription is lifetime.
@@ -44,21 +46,21 @@ class Hook_Switch {
 		}
 
 		// // Get sign-up fee for the old product from the subscription.
-		$old_signup_fee = floatval( $old_product->get_meta( '_subscription_sign_up_fee' ) );
-		$new_signup_fee = floatval( $new_product->get_meta( '_subscription_sign_up_fee' ) );
+		// $old_signup_fee = floatval( $old_product->get_meta( '_subscription_sign_up_fee' ) );
+		// $new_signup_fee = floatval( $new_product->get_meta( '_subscription_sign_up_fee' ) );
 
-		// Get recurring price for the old product from the subscription.
-		$old_recurring_fee = floatval( $old_product->get_meta( '_subscription_price' ) );
-		$new_recurring_fee = floatval( $new_product->get_meta( '_subscription_price' ) );
+		// // Get recurring price for the old product from the subscription.
+		// $old_recurring_fee = floatval( $old_product->get_meta( '_subscription_price' ) );
+		// $new_recurring_fee = floatval( $new_product->get_meta( '_subscription_price' ) );
 
-		// Calculate total costs
-		$old_total_cost = $old_signup_fee + $old_recurring_fee;
-		$new_total_cost = $new_signup_fee + $new_recurring_fee;
+		// // Calculate total costs
+		// $old_total_cost = $old_signup_fee + $old_recurring_fee;
+		// $new_total_cost = $new_signup_fee + $new_recurring_fee;
 
-		// Treat all switches to or from lifetime as upgrades to fire wcs_switch_sign_up_fee and wcs_switch_proration_extra_to_pay hooks.
-		if ( $new_total_cost === $old_total_cost ) {
-			return 'crossgrade';
-		}
+		// // Treat all switches to or from lifetime as upgrades to fire wcs_switch_sign_up_fee and wcs_switch_proration_extra_to_pay hooks.
+		// if ( $new_total_cost === $old_total_cost ) {
+		// return 'crossgrade';
+		// }
 
 		return 'upgrade';
 	}
@@ -121,6 +123,33 @@ class Hook_Switch {
 		return -$old_recurring_fee;
 	}
 
+	public function lifetime_switch_product_price_string( $product_subtotal, $cart_item, $cart_item_key ) {
+
+		if ( empty( $cart_item['subscription_switch']['subscription_id'] ) ) {
+			return $product_subtotal;
+		}
+
+		// Get the product associated with the subscription.
+		$subscription = wcs_get_subscription( $cart_item['subscription_switch']['subscription_id'] );
+
+		$old_product = wc_get_product( $subscription->get_items()[ $cart_item['subscription_switch']['item_id'] ]->get_variation_id() );
+		// Get the new product from the cart item.
+		$new_product = wc_get_product( $cart_item['variation_id'] );
+		// Check if the new product is a lifetime license.
+		$is_new_lifetime = $new_product->get_meta( '_is_lifetime', true );
+		// Check if the old product (from the subscription) is a lifetime license.
+		$is_old_lifetime = $old_product->get_meta( '_is_lifetime', true );
+
+		if ( ! $is_new_lifetime && ! $is_old_lifetime ) {
+			return $product_subtotal;
+		}
+
+		$pattern3         = '/<span class="subscription-switch-direction">[^<]+<\/span>/';
+		$product_subtotal = preg_replace( $pattern3, esc_html__( '(Switch)', 'lifetime-subscriptions-for-woocommerce' ), $product_subtotal, 1 );
+
+		return $product_subtotal;
+	}
+
 	public function lifetime_subscriptions_product_price_string( $subscription_string, $product, $include ) {
 
 		if ( is_admin() ) {
@@ -142,19 +171,12 @@ class Hook_Switch {
 		 */
 
 		// Define a regular expression pattern to match the specific HTML structure.
-		$pattern1 = '/<bdi><span class="woocommerce-Price-currencySymbol">[^<]+<\/span>[^<]+<\/bdi>/';
+		$pattern1            = '/<bdi><span class="woocommerce-Price-currencySymbol">[^<]+<\/span>[^<]+<\/bdi>/';
+		$subscription_string = preg_replace( $pattern1, '', $subscription_string, 1 );
 
-		// Perform the regular expression replace
-		// This will replace the matched portion with an empty string, effectively removing it.
-		$subscription_string = preg_replace($pattern1, '', $subscription_string, 1);
-	
-		// Define a regular expression pattern to match the specific HTML structure.
-		$pattern2 = '/(<span class="subscription-details">).*?(<span class="woocommerce-Price-amount amount">)/s';
+		$pattern2 = '/(<span class="subscription-details">).*?(<\/span>|<span class="woocommerce-Price-amount amount">)/s';
+		$subscription_string = preg_replace( $pattern2, '$1', $subscription_string );
 
-		// Perform the regular expression replace
-		// This will replace the matched portion with the content between the two spans.
-		$subscription_string = preg_replace($pattern2, '$1', $subscription_string);
-		
 		return $subscription_string;
 
 	}
