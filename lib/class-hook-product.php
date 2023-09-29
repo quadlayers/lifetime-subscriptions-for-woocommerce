@@ -11,16 +11,16 @@ class Hook_Product {
 		 * Set the subscription period to 1 year.
 		 * The lifetime subscription should never expire.
 		 */
-		add_filter( 'woocommerce_product_variation_get__subscription_period', array( $this, 'lifetime_subscription_period' ), 10, 2 );
-		add_filter( 'woocommerce_product_variation_get__subscription_period_interval', array( $this, 'lifetime_ssubscription_period_interval' ), 10, 2 );
-		add_filter( 'woocommerce_product_variation_get__subscription_length', array( $this, 'lifetime_subscription_length' ), 10, 2 );
-		/**
-		 * Set the price of the lifetime subscription to 0.
-		 * The lifetime subscription should be set via sign up fee.
-		 */
-		add_filter( 'woocommerce_product_variation_get_sale_price', array( $this, 'lifetime_price' ), 10, 2 );
-		add_filter( 'woocommerce_product_variation_get_regular_price', array( $this, 'lifetime_price' ), 10, 2 );
-		add_filter( 'woocommerce_product_variation_get_price', array( $this, 'lifetime_price' ), 10, 2 );
+		// add_filter( 'woocommerce_product_variation_get__subscription_period', array( $this, 'lifetime_subscription_period' ), 10, 2 );
+		// add_filter( 'woocommerce_product_variation_get__subscription_period_interval', array( $this, 'lifetime_subscription_period_interval' ), 10, 2 );
+		// add_filter( 'woocommerce_product_variation_get__subscription_length', array( $this, 'lifetime_subscription_length' ), 10, 2 );
+		// /**
+		//  * Set the price of the lifetime subscription to 0.
+		//  * The lifetime subscription should be set via sign up fee.
+		//  */
+		// add_filter( 'woocommerce_product_variation_get_sale_price', array( $this, 'lifetime_price' ), 10, 2 );
+		// add_filter( 'woocommerce_product_variation_get_regular_price', array( $this, 'lifetime_price' ), 10, 2 );
+		// add_filter( 'woocommerce_product_variation_get_price', array( $this, 'lifetime_price' ), 10, 2 );
 		/**
 		 * Remove next payment date in purchase.
 		 */
@@ -40,7 +40,7 @@ class Hook_Product {
 		return 'year';
 	}
 
-	public function lifetime_ssubscription_period_interval( $value, $data ) {
+	public function lifetime_subscription_period_interval( $value, $data ) {
 		$is_lifetime = $data->get_meta( '_is_lifetime', true );
 		if ( ! $is_lifetime ) {
 			return $value;

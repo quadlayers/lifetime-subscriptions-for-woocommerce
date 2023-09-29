@@ -10,7 +10,8 @@ class Admin_Product {
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 		// Add product lifetime meta.
 		add_action( 'woocommerce_variation_options', array( $this, 'add_options' ), 10, 3 );
-		add_action( 'woocommerce_save_product_variation', array( $this, 'save' ), 10, 2 );
+		// Fire hook before subscription is saved.
+		add_action( 'woocommerce_save_product_variation', array( $this, 'save' ), 9999, 2 );
 
 	}
 
@@ -60,6 +61,14 @@ class Admin_Product {
 			$value = 'on' === $value ? true : false;
 
 			$product->update_meta_data( '_is_lifetime', $value );
+			$product->update_meta_data( '_subscription_period', 'year' );
+			$product->update_meta_data( '_subscription_period_interval', 1 );
+			$product->update_meta_data( '_subscription_length', 0 );
+			$product->update_meta_data( '_subscription_price', 0 );
+			$product->set_sale_price( 0 );
+			$product->set_regular_price( 0 );
+			$product->set_price( 0 );
+
 		} else {
 			$product->delete_meta_data( '_is_lifetime' );
 		}
