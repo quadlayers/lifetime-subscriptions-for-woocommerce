@@ -19,7 +19,9 @@ final class Plugin {
 			'woocommerce_init',
 			function () {
 				Admin_Menu::instance();
-				Hooks::instance();
+				Admin_Product::instance();
+				Hook_Product::instance();
+				Hook_Switch::instance();
 			}
 		);
 

@@ -20,7 +20,7 @@ const excludeFiles = ['node_modules', 'languages', 'vendor', 'tests'];
 const includeFiles = pluginFiles.filter((file) => !excludeFiles.includes(file));
 
 // Construct the command
-const command = `php -d memory_limit=512M php .tools/vendor/wp-cli/wp-cli/php/boot-fs.php i18n make-pot ${baseDir} ${outputFile} --include=${includeFiles.join(
+const command = `php -d memory_limit=512M .tools/vendor/wp-cli/wp-cli/php/boot-fs.php i18n make-pot ${baseDir} ${outputFile} --include=${includeFiles.join(
 	','
 )}`;
 
