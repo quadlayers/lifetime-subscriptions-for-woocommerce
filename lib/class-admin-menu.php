@@ -61,6 +61,16 @@ class Admin_Menu {
 			'desc_tip' => true,
 		);
 		$settings[] = array(
+			'name'     => esc_html__( 'Switch Between Types', 'lifetime-subscriptions-for-woocommerce' ),
+			'desc'     => esc_html__( 'Allow switch between lifetime and recurrent subscriptions.', 'lifetime-subscriptions-for-woocommerce' ),
+			'tip'      => esc_html__( 'If enabled, users will be able to switch their lifetime subscriptions to recurrent subscriptions and vice versa.', 'lifetime-subscriptions-for-woocommerce' ), // Tip to help the admin understand the functionality
+			'id'       => 'lifetime_subscriptions_switch_between_types',
+			'css'      => 'min-width:150px;',
+			'default'  => 'no', // Set to 'yes'/'no' to make the functionality enabled/disabled by default
+			'type'     => 'checkbox',
+			'desc_tip' => true,
+		);
+		$settings[] = array(
 			'type' => 'sectionend',
 			'id'   => 'lifetime_label',
 		);

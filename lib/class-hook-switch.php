@@ -24,6 +24,9 @@ class Hook_Switch {
 
 		// Removes the Upgrade subscription switch/button from subscription. No upgrade if subscription is lifetime.
 		add_filter( 'woocommerce_subscriptions_switch_link', array( $this, 'lifetime_subscriptions_switch_link' ), 10, 4 );
+
+		// Allow users to switch between lifetime and recurrent products.
+		add_filter( 'woocommerce_get_children', array( $this, 'customize_variations_options' ), 10, 1 );
 	}
 
 	public function lifetime_switch_proration_type( $switch_type, $subscription, $cart_item, $old_price_per_day, $new_price_per_day ) {
@@ -223,6 +226,48 @@ class Hook_Switch {
 
 		return false;
 	}
+
+	public function customize_variations_options( $variations ) {
+		$option_value = get_option( 'lifetime_subscriptions_switch_between_types', 'no' );
+
+		// Early return if the option is set to 'yes'.
+		if ( $option_value === 'yes' ) {
+			return $variations;
+		}
+
+		// Check if 'switch-subscription' is set and is a valid subscription.
+		$id           = filter_input( INPUT_GET, 'switch-subscription', FILTER_VALIDATE_INT );
+		$subscription = $id ? wcs_get_subscription( $id ) : null;
+
+		if ( ! $subscription ) {
+			return $variations;
+		}
+
+		// Determine if all products in the subscription are not lifetime.
+		$has_recurrent_products = true;
+		foreach ( $subscription->get_items() as $item ) {
+			$product = wc_get_product( $item->get_variation_id() );
+			if ( $product && $product->get_meta( '_is_lifetime', true ) ) {
+				$has_recurrent_products = false;
+				break; // Exit the loop early if we find a lifetime product.
+			}
+		}
+
+		// Filter out the variations based on whether they match the lifetime status.
+		return array_filter(
+			$variations,
+			function( $variation ) use ( $has_recurrent_products ) {
+			$variation_product = wc_get_product( $variation );
+				if ( ! $variation_product ) {
+					return false;
+				}
+
+			$variation_is_recurrent = ! (bool) $variation_product->get_meta( '_is_lifetime' );
+			return $variation_is_recurrent === $has_recurrent_products;
+			}
+		);
+	}
+
 
 	public static function instance() {
 		if ( is_null( self::$instance ) ) {
