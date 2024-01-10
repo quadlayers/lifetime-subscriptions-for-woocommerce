@@ -8,7 +8,7 @@ Stable tag: 1.0.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 WC requires at least: 4.7.0
-WC tested up to: 8.3
+WC tested up to: 8.5
 
 Lifetime Subscriptions for WooCommerce – the ultimate solution for adding a "Lifetime/One-time Purchase" option to WooCommerce Subscriptions.
 
