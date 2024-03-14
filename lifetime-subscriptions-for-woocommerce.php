@@ -4,7 +4,7 @@
  * Plugin Name:             Lifetime Subscriptions for WooCommerce
  * Plugin URI:              https://quadlayers.com/
  * Description:             Lifetime Subscriptions for WooCommerce
- * Version:                 1.0.3
+ * Version:                 1.0.4
  * Text Domain:             lifetime-subscriptions-for-woocommerce
  * Author:                  QuadLayers
  * Author URI:              https://quadlayers.com
@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 *   Definition globals variables
 */
 define( 'LSFW_PLUGIN_NAME', 'Lifetime Subscriptions for WooCommerce' );
-define( 'LSFW_PLUGIN_VERSION', '1.0.3' );
+define( 'LSFW_PLUGIN_VERSION', '1.0.4' );
 define( 'LSFW_PLUGIN_FILE', __FILE__ );
 define( 'LSFW_PLUGIN_DIR', __DIR__ . DIRECTORY_SEPARATOR );
 define( 'LSFW_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
@@ -66,5 +66,17 @@ register_deactivation_hook(
 	__FILE__,
 	function() {
 		do_action( 'lsfw_deactivation' );
+	}
+);
+
+/**
+ * Declarate compatibility with WooCommerce Custom Order Tables
+ */
+add_action(
+	'before_woocommerce_init',
+	function() {
+		if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+		}
 	}
 );
