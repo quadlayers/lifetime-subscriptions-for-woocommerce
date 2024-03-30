@@ -4,7 +4,7 @@
  * Plugin Name:             Lifetime Subscriptions for WooCommerce
  * Plugin URI:              https://quadlayers.com/
  * Description:             Lifetime Subscriptions for WooCommerce
- * Version:                 1.0.4
+ * Version:                 1.0.5
  * Text Domain:             lifetime-subscriptions-for-woocommerce
  * Author:                  QuadLayers
  * Author URI:              https://quadlayers.com
@@ -14,7 +14,7 @@
  * Tested up to:            6.4
  * Requires PHP:            5.6
  * WC requires at least:    4.0
- * WC tested up to:         8.6
+ * WC tested up to:         8.7
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 *   Definition globals variables
 */
 define( 'LSFW_PLUGIN_NAME', 'Lifetime Subscriptions for WooCommerce' );
-define( 'LSFW_PLUGIN_VERSION', '1.0.4' );
+define( 'LSFW_PLUGIN_VERSION', '1.0.5' );
 define( 'LSFW_PLUGIN_FILE', __FILE__ );
 define( 'LSFW_PLUGIN_DIR', __DIR__ . DIRECTORY_SEPARATOR );
 define( 'LSFW_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
