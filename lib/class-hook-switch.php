@@ -177,7 +177,7 @@ class Hook_Switch {
 		$pattern1            = '/<bdi><span class="woocommerce-Price-currencySymbol">[^<]+<\/span>[^<]+<\/bdi>/';
 		$subscription_string = preg_replace( $pattern1, '', $subscription_string, 1 );
 
-		$pattern2 = '/(<span class="subscription-details">).*?(<\/span>|<span class="woocommerce-Price-amount amount">)/s';
+		$pattern2            = '/(<span class="subscription-details">).*?(<\/span>|<span class="woocommerce-Price-amount amount">)/s';
 		$subscription_string = preg_replace( $pattern2, '$1', $subscription_string );
 
 		return $subscription_string;

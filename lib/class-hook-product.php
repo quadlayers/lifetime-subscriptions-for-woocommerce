@@ -15,9 +15,9 @@ class Hook_Product {
 		// add_filter( 'woocommerce_product_variation_get__subscription_period_interval', array( $this, 'lifetime_subscription_period_interval' ), 10, 2 );
 		// add_filter( 'woocommerce_product_variation_get__subscription_length', array( $this, 'lifetime_subscription_length' ), 10, 2 );
 		// /**
-		//  * Set the price of the lifetime subscription to 0.
-		//  * The lifetime subscription should be set via sign up fee.
-		//  */
+		// * Set the price of the lifetime subscription to 0.
+		// * The lifetime subscription should be set via sign up fee.
+		// */
 		// add_filter( 'woocommerce_product_variation_get_sale_price', array( $this, 'lifetime_price' ), 10, 2 );
 		// add_filter( 'woocommerce_product_variation_get_regular_price', array( $this, 'lifetime_price' ), 10, 2 );
 		// add_filter( 'woocommerce_product_variation_get_price', array( $this, 'lifetime_price' ), 10, 2 );
@@ -72,14 +72,17 @@ class Hook_Product {
 
 		$has_recurrent_products = array_map(
 			function( $item ) {
-				$product     = wc_get_product( $item->get_variation_id() );
+				$product = wc_get_product( $item->get_variation_id() );
+				if ( ! $product ) {
+					return true;
+				}
 				$is_lifetime = $product->get_meta( '_is_lifetime', true );
 				return ! $is_lifetime;
 			},
 			$subscription->get_items()
 		);
 
-		if ( in_array( true, $has_recurrent_products, true ) ) {
+		if ( is_array( $has_recurrent_products ) && in_array( true, $has_recurrent_products, true ) ) {
 			return $date;
 		}
 
