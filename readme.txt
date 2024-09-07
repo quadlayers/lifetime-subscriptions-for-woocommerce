@@ -4,11 +4,11 @@ Donate link: https://quadlayers.com/
 Tags: Woocommerce, Woocommerce Subscriptions, WooCommerce Subscriptions Lifetime, Lifetime Subscriptions
 Requires PHP: 5.6
 Tested up to: 6.6
-Stable tag: 1.1.1
+Stable tag: 1.1.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 WC requires at least: 4.0
-WC tested up to: 9.1
+WC tested up to: 9.2
 
 Lifetime Subscriptions for WooCommerce – the ultimate solution for adding a "Lifetime/One-time Purchase" option to WooCommerce Subscriptions.
 
@@ -47,6 +47,9 @@ Complete by activating the plugin from the 'Plugins' menu.
 Empower your WooCommerce store with lifetime subscription capabilities. Elevate your sales and customer loyalty today!
 
 == Changelog ==
+
+=  1.1.2 = 
+* WooCommerce compatibility
 
 =  1.1.1 = 
 * Update dependencies
