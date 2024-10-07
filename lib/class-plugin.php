@@ -24,7 +24,6 @@ final class Plugin {
 				Hook_Switch::instance();
 			}
 		);
-
 	}
 
 	public static function instance() {

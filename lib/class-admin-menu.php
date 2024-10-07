@@ -16,7 +16,6 @@ class Admin_Menu {
 
 		// Add settings in Woocommerce -> Settings -> Subscriptions
 		add_filter( 'woocommerce_subscription_settings', array( $this, 'lifetime_subscription_label' ), 10, 1 );
-
 	}
 
 	public function lifetime_subscription_period( $period ) {

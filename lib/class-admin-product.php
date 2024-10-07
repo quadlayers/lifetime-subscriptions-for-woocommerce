@@ -12,7 +12,6 @@ class Admin_Product {
 		add_action( 'woocommerce_variation_options', array( $this, 'add_options' ), 10, 3 );
 		// Fire hook before subscription is saved.
 		add_action( 'woocommerce_save_product_variation', array( $this, 'save' ), 9999, 2 );
-
 	}
 
 	public function enqueue_scripts() {
@@ -32,7 +31,6 @@ class Admin_Product {
 
 		wp_enqueue_script( 'lsfw-admin' );
 		wp_enqueue_style( 'lsfw-admin' );
-
 	}
 
 	public static function add_options( $loop, $variation_data, $variation ) {
@@ -74,7 +72,6 @@ class Admin_Product {
 		}
 
 		$product->save();
-
 	}
 
 	public static function instance() {

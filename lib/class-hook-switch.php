@@ -95,7 +95,6 @@ class Hook_Switch {
 		$new_signup_fee = floatval( $new_product->get_meta( '_subscription_sign_up_fee' ) );
 
 		return $new_signup_fee - $old_signup_fee;
-
 	}
 
 	public function lifetime_switch_recuring_fee( $extra_to_pay, $subscription, $cart_item, $get_days_in_old_cycle ) {
@@ -160,7 +159,7 @@ class Hook_Switch {
 		}
 
 		static $switch_counter = -1;
-		$switch_counter++;
+		++$switch_counter;
 
 		$is_lifetime = $product->get_meta( '_is_lifetime', true );
 
@@ -181,7 +180,6 @@ class Hook_Switch {
 		$subscription_string = preg_replace( $pattern2, '$1', $subscription_string );
 
 		return $subscription_string;
-
 	}
 
 	public function lifetime_subscriptions_switch_link( $switch_link, $item_id, $item, $subscription ) {
@@ -256,7 +254,7 @@ class Hook_Switch {
 		// Filter out the variations based on whether they match the lifetime status.
 		return array_filter(
 			$variations,
-			function( $variation ) use ( $has_recurrent_products ) {
+			function ( $variation ) use ( $has_recurrent_products ) {
 			$variation_product = wc_get_product( $variation );
 				if ( ! $variation_product ) {
 					return false;

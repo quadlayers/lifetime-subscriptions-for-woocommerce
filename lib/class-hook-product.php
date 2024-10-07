@@ -71,7 +71,7 @@ class Hook_Product {
 	public function lifetime_calculated_next_payment_date( $date, $subscription ) {
 
 		$has_recurrent_products = array_map(
-			function( $item ) {
+			function ( $item ) {
 				$product = wc_get_product( $item->get_variation_id() );
 				if ( ! $product ) {
 					return true;
@@ -110,7 +110,7 @@ class Hook_Product {
 		 * There is no issue with the renewal of lifetime subscriptions because the recurring price is 0.
 		 */
 		$has_recurrent_products = array_map(
-			function( $item ) {
+			function ( $item ) {
 				$product     = wc_get_product( $item->get_variation_id() );
 				$is_lifetime = $product->get_meta( '_is_lifetime', true );
 				return ! $is_lifetime;
@@ -124,7 +124,6 @@ class Hook_Product {
 
 		$subscription->update_dates( array( 'next_payment' => 0 ) );
 		$subscription->save();
-
 	}
 
 	public static function instance() {
