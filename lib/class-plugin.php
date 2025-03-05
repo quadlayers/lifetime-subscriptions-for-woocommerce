@@ -10,7 +10,7 @@ final class Plugin {
 		/**
 		 * Load plugin textdomain.
 		 */
-		load_plugin_textdomain( 'lifetime-subscriptions-for-woocommerce', false, LSFW_PLUGIN_DIR . '/languages/' );
+		add_action( 'init', array( $this, 'load_textdomain' ) );
 
 		/**
 		 * Load plugin classes.
@@ -24,6 +24,10 @@ final class Plugin {
 				Hook_Switch::instance();
 			}
 		);
+	}
+
+	public function load_textdomain() {
+		load_plugin_textdomain( 'lifetime-subscriptions-for-woocommerce', false, LSFW_PLUGIN_DIR . '/languages/' );
 	}
 
 	public static function instance() {
