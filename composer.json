@@ -24,7 +24,8 @@
 		"automattic/jetpack-assets": "*",
 		"quadlayers/wp-dashboard-widget-news": "*",
 		"quadlayers/wp-notice-plugin-required": "*",
-		"quadlayers/wp-plugin-table-links": "*"
+		"quadlayers/wp-plugin-table-links": "*",
+		"franmastromarino/wp-plugin-feedback": "*"
 	},
 	"autoload": {
 		"classmap": [

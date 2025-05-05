@@ -4,7 +4,7 @@
  * Plugin Name:             Lifetime Subscriptions for WooCommerce
  * Plugin URI:              https://quadlayers.com/
  * Description:             Lifetime Subscriptions for WooCommerce
- * Version:                 1.1.9
+ * Version:                 1.2.0
  * Text Domain:             lifetime-subscriptions-for-woocommerce
  * Author:                  QuadLayers
  * Author URI:              https://quadlayers.com
@@ -24,14 +24,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 *   Definition globals variables
 */
 define( 'LSFW_PLUGIN_NAME', 'Lifetime Subscriptions for WooCommerce' );
-define( 'LSFW_PLUGIN_VERSION', '1.1.9' );
+define( 'LSFW_PLUGIN_VERSION', '1.2.0' );
 define( 'LSFW_PLUGIN_FILE', __FILE__ );
 define( 'LSFW_PLUGIN_DIR', __DIR__ . DIRECTORY_SEPARATOR );
 define( 'LSFW_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'LSFW_DOMAIN', 'lsfw' );
 define( 'LSFW_PREFIX', LSFW_DOMAIN );
 define( 'LSFW_PURCHASE_URL', 'https://quadlayers.com/?utm_source=lsfw_admin' );
-define( 'LSFW_SUPPORT_URL', 'https://quadlayers.com/account/support/?utm_source=lsfw_admin' );
 define( 'LSFW_DOCUMENTATION_URL', 'https://quadlayers.com/documentation/woocommerce-license-manager/?utm_source=lsfw_admin' );
 define( 'LSFW_LICENSES_URL', 'https://quadlayers.com/account/licenses/?utm_source=lsfw_admin' );
 define( 'LSFW_PREMIUM_SELL_URL', 'https://quadlayers.com/products/woocommerce-license-manager/?utm_source=lsfw_admin' );
@@ -46,6 +45,7 @@ require_once __DIR__ . '/vendor_packages/wp-i18n-map.php';
 require_once __DIR__ . '/vendor_packages/wp-dashboard-widget-news.php';
 require_once __DIR__ . '/vendor_packages/wp-plugin-table-links.php';
 require_once __DIR__ . '/vendor_packages/wp-notice-plugin-required.php';
+require_once __DIR__ . '/vendor_packages/wp-plugin-feedback.php';
 /**
  * Load plugin classes
  */

@@ -14,11 +14,13 @@ if ( class_exists( 'QuadLayers\\WP_Plugin_Table_Links\\Load' ) ) {
 				array(
 					'text' => esc_html__( 'Premium', 'lifetime-subscriptions-for-woocommerce' ),
 					'url'  => LSFW_PREMIUM_SELL_URL,
+					'color' => 'green',
+					'target' => '_blank',
 				),
 				array(
 					'place' => 'row_meta',
 					'text'  => esc_html__( 'Support', 'lifetime-subscriptions-for-woocommerce' ),
-					'url'   => LSFW_SUPPORT_URL,
+					'url'   => 'https://wordpress.org/support/plugin/lifetime-subscriptions-for-woocommerce/',
 				),
 				array(
 					'place' => 'row_meta',
